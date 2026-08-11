@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://msamueldev.github.io/caffe-moretti/sitemap.xml

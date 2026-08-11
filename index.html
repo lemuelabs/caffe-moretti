@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caffè Moretti — Torrefazione Napoletana dal 1962 · Buenos Aires</title>
+<meta name="description" content="Caffè Moretti. Tueste artesanal napolitano y tradición italiana auténtica, en el corazón de Palermo, Ciudad Autónoma de Buenos Aires.">
+<link rel="canonical" href="https://msamueldev.github.io/caffe-moretti/">
+
+<!-- Favicon — inicial "M" en serif itálica dentro de un círculo, terracota sobre crema -->
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+
+<!-- Open Graph / Twitter Card -->
+<!-- og:url apunta a la URL real del sitio en GitHub Pages -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://msamueldev.github.io/caffe-moretti/">
+<meta property="og:title" content="Caffè Moretti — Torrefazione Napoletana dal 1962 · Buenos Aires">
+<meta property="og:description" content="Caffè Moretti. Tueste artesanal napolitano y tradición italiana auténtica, en el corazón de Palermo, Ciudad Autónoma de Buenos Aires.">
+<!-- og:image usa la URL absoluta del .webp del hero — los crawlers de
+     WhatsApp/LinkedIn/etc. necesitan URL absoluta, no relativa, para poder
+     ir a buscar la imagen. width/height/type son las dimensiones reales
+     de ese archivo; si se re-exporta la foto con otro tamaño, actualizar
+     estos tres valores también.
+     Para máxima compatibilidad (algunos previsualizadores todavía no
+     soportan WebP), lo ideal es exportar además una versión .jpg de esta
+     misma foto en 1200×630px y apuntar acá a esa en vez del .webp. -->
+<meta property="og:image" content="https://msamueldev.github.io/caffe-moretti/assets/images/hero/cover-espresso-cup.webp">
+<meta property="og:image:width" content="900">
+<meta property="og:image:height" content="1200">
+<meta property="og:image:type" content="image/webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Caffè Moretti — Torrefazione Napoletana dal 1962 · Buenos Aires">
+<meta name="twitter:description" content="Caffè Moretti. Tueste artesanal napolitano y tradición italiana auténtica, en el corazón de Palermo, Ciudad Autónoma de Buenos Aires.">
+<meta name="twitter:image" content="https://msamueldev.github.io/caffe-moretti/assets/images/hero/cover-espresso-cup.webp">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;1,6..96,400;1,6..96,600;1,6..96,700&family=Source+Serif+4:opsz,wght@8..60,400&family=Archivo+Narrow:wght@400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+<script>
+  /* Aplica el tema antes del primer paint para evitar flash de color.
+     Prioridad: elección guardada por el usuario > preferencia del sistema. */
+  (function(){
+    try{
+      var KEY = 'caffe-moretti-theme';
+      var stored = localStorage.getItem(KEY);
+      var wantsDark = stored ? stored === 'dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (wantsDark) document.documentElement.setAttribute('data-theme', 'dark');
+    }catch(e){}
+  })();
+  /* Si venimos de un link con transición a pantalla negra (ver main.js),
+     tapamos la página instantáneamente ANTES del primer paint — sin esto
+     se vería un flash del contenido antes de que main.js pueda ocultarlo. */
+  (function(){
+    try{
+      if (sessionStorage.getItem('cm-page-transition')) {
+        document.documentElement.classList.add('is-entering');
+      }
+    }catch(e){}
+  })();
+</script>
+
+<!-- Datos estructurados (Schema.org) para SEO local, con la URL real del sitio. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CafeOrCoffeeShop",
+  "name": "Caffè Moretti",
+  "image": "https://msamueldev.github.io/caffe-moretti/assets/images/hero/cover-espresso-cup.webp",
+  "url": "https://msamueldev.github.io/caffe-moretti/",
+  "telephone": "+54-11-4832-5566",
+  "email": "tavolo@caffemoretti.com.ar",
+  "priceRange": "$$",
+  "servesCuisine": "Café italiano, especialidad",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Thames 1548",
+    "addressLocality": "Palermo Soho, Ciudad Autónoma de Buenos Aires",
+    "postalCode": "C1414DNE",
+    "addressCountry": "AR"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "07:30",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "08:30",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "09:00",
+      "closes": "15:00"
+    }
+  ]
+}
+</script>
+
+<!-- Analítica — Plausible (privacy-friendly, sin cookies, cero backend propio).
+     data-domain apunta al dominio real donde vive el sitio (GitHub Pages).
+     Ojo: Plausible trackea por dominio completo, no por subcarpeta — si esta
+     cuenta de GitHub Pages aloja más de un proyecto bajo msamueldev.github.io,
+     las estadísticas de todos esos proyectos se van a mezclar acá. Si eso
+     importa, conviene un dominio propio (ej. subdominio) solo para este sitio. -->
+<script defer data-domain="msamueldev.github.io" src="https://plausible.io/js/script.js"></script>
+
+<!-- Alternativa: Google Analytics 4 (descomentar y completar G-XXXXXXX si se prefiere GA4 en vez de Plausible) -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXX');
+</script>
+-->
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<div class="page-transition" aria-hidden="true">
+  <span class="page-transition-word">Caffè Moretti</span>
+</div>
+
+<!-- reading progress rail -->
+<div class="progress-rail" aria-hidden="true">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="progress-bean" id="progressBean" aria-hidden="true"></div>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="masthead-bar">
+  <div class="masthead-inner">
+    <a href="#cover" class="mast-logo">Caffè <em>Moretti</em></a>
+    <div class="masthead-actions">
+      <button type="button" id="themeToggle" class="theme-toggle" aria-label="Cambiar a modo oscuro">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 14.2A8.4 8.4 0 1 1 9.8 4a6.6 6.6 0 0 0 10.2 10.2Z"/>
+        </svg>
+      </button>
+      <div class="lang-switch">
+        <label for="langSelect" class="lang-switch-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M3 12h18M12 3c2.5 2.5 3.8 5.6 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.6-3.8-9s1.3-6.5 3.8-9Z"/>
+          </svg>
+          <span data-i18n="lang_label">Idioma</span>
+        </label>
+        <select id="langSelect" aria-label="Idioma">
+          <option value="es">Español</option>
+          <option value="en">English</option>
+          <option value="pt-BR">Português</option>
+        </select>
+      </div>
+      <input type="checkbox" id="navToggle" class="nav-toggle">
+      <nav class="mast-nav">
+        <a href="#storia" data-i18n="nav_historia">La Historia</a>
+        <a href="#selezione" data-i18n="nav_seleccion">Selección</a>
+        <a href="carta.html" data-i18n="nav_carta">Carta</a>
+        <a href="#contatto" data-i18n="nav_contacto">Contacto</a>
+        <a href="#voci" data-i18n="nav_voces">Voces</a>
+        <a href="https://wa.me/5355530224" target="_blank" rel="noopener" class="mast-cta" data-i18n="nav_cta">Hablemos</a>
+      </nav>
+      <label for="navToggle" class="nav-toggle-label" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </label>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+<!-- ============ 1. COVER / HERO ============ -->
+<section class="cover" id="cover">
+
+  <div class="cover-visual-bleed">
+    <div class="cover-bleed-photo ph">
+      <img class="ph-img" src="assets/images/hero/cover-espresso-cup.webp" loading="eager" data-i18n-attr="alt:img_alt_hero" alt="Taza de espresso italiano de porcelana blanca con crema densa, sobre una barra de mármol oscuro, luz natural cálida">
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="cover-kicker-row">
+      <span><span class="cover-kicker-num">N.º 07</span> — <span data-i18n="cover_kicker_edicion">Edición Otoño</span></span>
+      <span>Torrefazione Napoletana dal 1962 · Buenos Aires</span>
+    </div>
+
+    <div class="cover-heading-wrap reveal">
+      <p class="cover-eyebrow" data-i18n="cover_eyebrow">Reportaje de portada</p>
+<!-- Titular intencionalmente en italiano — identidad de marca, no se traduce en ningún idioma -->
+      <h1 class="cover-title headline-reveal">
+        <span class="line1">L'Italia,</span>
+        <span class="line2">in una tazza.</span>
+      </h1>
+      <p class="cover-sub" data-i18n="cover_sub">Tueste lento, molienda al momento y el rito de la barra: la misma taza que se sirve en Nápoles desde 1962, ahora en tu barrio.</p>
+      <div class="cover-actions">
+        <a href="https://wa.me/5355530224" target="_blank" rel="noopener" class="btn btn--solid" data-i18n="hero_cta">Hablemos por WhatsApp</a>
+        <a href="#storia" class="btn btn--ghost" data-i18n="hero_cta_secondary">Descubre la historia</a>
+      </div>
+    </div>
+
+    <div class="cover-byline reveal">
+      <span data-i18n="cover_byline_1">Redacción — Bottega Moretti</span>
+      <span data-i18n="cover_byline_2">Grano · Tueste · Ritual</span>
+      <span data-i18n="cover_byline_3">3 min. de lectura</span>
+    </div>
+    <p class="cover-photo-credit" data-i18n="cover_photo_credit">Espresso classico, servido en el bancone — Napoli, ph. archivo Moretti</p>
+
+  </div>
+</section>
+
+<!-- ============ 2. LA STORIA / EL PROCESO ============ -->
+<section class="spread" id="storia">
+  <div class="container">
+
+    <div class="folio">
+      <span class="folio-num">— 02 —</span>
+      <span class="folio-rule"></span>
+      <span data-i18n="folio_storia">Nota Editorial</span>
+    </div>
+
+    <div class="storia-head reveal">
+      <p class="kicker" data-i18n="storia_kicker">Origen, tueste y tradición</p>
+      <h2 class="headline headline-reveal" data-i18n="storia_h2">El rito napolitano del tueste lento.</h2>
+    </div>
+
+    <div class="article-grid reveal">
+      <div class="article-col">
+        <h3 data-i18n="storia_col1_h">El origen del grano</h3>
+        <p data-i18n="storia_col1_p1">Cada saco que entra en la torrefazione ha sido elegido a mano, lote por lote, entre pequeñas fincas de altura en Etiopía y Brasil. No compramos volumen: compramos temporadas, perfiles de acidez, altitudes concretas. El café verde llega sin torrar, envuelto en yute, y descansa dos semanas antes de que decidamos si merece el fuego.</p>
+        <p data-i18n="storia_col1_p2">Es un criterio heredado, no un eslogan: mi abuelo catalogaba cada partida en un cuaderno de tapas de cuero que todavía usamos para anotar las nuevas.</p>
+      </div>
+      <div class="article-col">
+        <h3 data-i18n="storia_col2_h">El método napolitano</h3>
+        <p data-i18n="storia_col2_p1">El tueste se hace en tambores de hierro fundido, a fuego lento y con vigilancia constante — nunca automatizado del todo. La temperatura sube despacio, en curva, para que el azúcar del grano caramelice sin quemarse: es la diferencia entre un café amargo y uno redondo.</p>
+        <p data-i18n="storia_col2_p2">Diecisiete minutos, ni uno más. El maestro tostador reconoce el punto por el color, el olor y el sonido del segundo crack, no por un cronómetro.</p>
+      </div>
+      <div class="article-col">
+        <h3 data-i18n="storia_col3_h">La tradición viva</h3>
+        <p data-i18n="storia_col3_p1">En Nápoles el café no se toma: se atraviesa de pie, en segundos, hablando con quien sirve. Mantenemos esa misma barra, ese mismo gesto — y también el caffè sospeso, la costumbre de dejar pagado un café para quien lo necesite y no pueda pedirlo.</p>
+        <p data-i18n="storia_col3_p2">No servimos café. Servimos una costumbre de setenta años que seguimos exactamente igual.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote reveal">
+      <div class="pull-quote-inner">
+        <!-- Cita en italiano — identidad de marca, no se traduce -->
+        <p>«Un buon caffè non si beve. Si ascolta.»</p>
+        <cite data-i18n="storia_quote_cite">— Dicho de la Bottega Moretti, transmitido desde 1962</cite>
+      </div>
+    </div>
+
+    <div class="process-row reveal">
+      <div class="process-item">
+        <div class="ph"><img class="ph-img parallax-img" src="assets/images/proceso/fig-01-seleccion-grano.webp" loading="lazy" data-i18n-attr="alt:img_alt_fig1" alt="Manos seleccionando granos de café verde sobre una mesa de madera rústica"></div>
+        <p class="process-fig"><b>Fig. 1</b> — <span data-i18n="storia_fig1">Selección manual del grano verde</span></p>
+      </div>
+      <div class="process-item">
+        <div class="ph"><img class="ph-img parallax-img" src="assets/images/proceso/fig-02-tueste-tambor.webp" loading="lazy" data-i18n-attr="alt:img_alt_fig2" alt="Tambor de tueste de hierro fundido girando con resplandor cálido de brasas en una torrefacción artesanal"></div>
+        <p class="process-fig"><b>Fig. 2</b> — <span data-i18n="storia_fig2">Tueste lento en tambor de hierro</span></p>
+      </div>
+      <div class="process-item">
+        <div class="ph"><img class="ph-img parallax-img" src="assets/images/proceso/fig-03-reposo-molienda.webp" loading="lazy" data-i18n-attr="alt:img_alt_fig3" alt="Café recién tostado en grano sobre una bandeja metálica de enfriado, junto a un molinillo profesional"></div>
+        <p class="process-fig"><b>Fig. 3</b> — <span data-i18n="storia_fig3">Reposo, molienda y punto de barra</span></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 3. SELEZIONE DESTACADA ============ -->
+<section class="spread" id="selezione">
+  <div class="container">
+
+    <div class="folio">
+      <span class="folio-num">— 03 —</span>
+      <span class="folio-rule"></span>
+      <span data-i18n="folio_selezione">La Guía del Degustador</span>
+    </div>
+
+    <div class="selezione-head reveal reveal-scale">
+      <h2 class="headline headline-reveal" data-i18n="selezione_h2">Cuatro tazas que cuentan una historia.</h2>
+      <p class="selezione-intro" data-i18n="selezione_intro">Nuestra redacción de barra probó, a ciegas, la carta completa. Esto es lo que se quedó anotado en el cuaderno.</p>
+    </div>
+
+    <div class="review-grid reveal">
+
+      <article class="review-card">
+        <div class="review-photo ph"><img class="ph-img parallax-img" src="assets/images/productos/miscela-vesuvio.webp" loading="lazy" data-i18n-attr="alt:img_alt_vesuvio" alt="Bolsa de café Miscela Vesuvio junto a granos de café oscuros esparcidos sobre mármol claro"></div>
+        <div class="review-top">
+          <h3 class="review-name">Miscela Vesuvio</h3>
+          <span class="review-tag" data-i18n="tag_vesuvio">Recomendación de la casa</span>
+        </div>
+        <p class="review-text" data-i18n="review_vesuvio">La mezcla histórica de la casa. Cuerpo denso, notas de cacao tostado y una punta final de regaliz que se queda en el paladar más de lo esperado. Un espresso sin timidez, pensado para tomarse de pie.</p>
+        <dl class="spec-sheet">
+          <div class="spec-row"><dt data-i18n="spec_origen">Origen</dt><dd>Brasil · Etiopía</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_altitud">Altitud</dt><dd>900–1300 msnm</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_perfil">Perfil de tueste</dt><dd data-i18n="perfil_oscuro">Oscuro</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_notas">Notas de cata</dt><dd data-i18n="notas_vesuvio">Cacao tostado, regaliz, cuerpo denso</dd></div>
+        </dl>
+      </article>
+
+      <article class="review-card">
+        <div class="review-photo ph"><img class="ph-img parallax-img" src="assets/images/productos/shakerato.webp" loading="lazy" data-i18n-attr="alt:img_alt_shakerato" alt="Vaso de shakerato helado con espuma cremosa, gotas de condensación, fotografiado sobre mármol claro en un día de verano"></div>
+        <div class="review-top">
+          <h3 class="review-name">Shakerato</h3>
+          <span class="review-tag" data-i18n="tag_shakerato">Favorito de verano</span>
+        </div>
+        <p class="review-text" data-i18n="review_shakerato">Espresso shakeado con hielo hasta formar una espuma densa y fría, sin una gota de agua de más. Directo, intenso, y listo en el tiempo que tarda el barista en agitar la coctelera.</p>
+        <dl class="spec-sheet">
+          <div class="spec-row"><dt data-i18n="spec_base">Base</dt><dd data-i18n="base_shakerato">Miscela Vesuvio</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_preparacion">Preparación</dt><dd data-i18n="prep_shakerato">Shakeado con hielo</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_temporada">Temporada</dt><dd data-i18n="temporada_shakerato">Verano</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_notas">Notas de cata</dt><dd data-i18n="notas_shakerato">Frío, intenso, espuma densa</dd></div>
+        </dl>
+      </article>
+
+      <article class="review-card">
+        <div class="review-photo ph"><img class="ph-img parallax-img" src="assets/images/productos/decaffeinato-antica.webp" loading="lazy" data-i18n-attr="alt:img_alt_decaf" alt="Taza de café junto a un terrón de azúcar moreno y una cucharilla de plata antigua sobre mesa clásica italiana"></div>
+        <div class="review-top">
+          <h3 class="review-name">Decaffeinato all'Antica</h3>
+          <span class="review-tag" data-i18n="tag_decaf">Para la sobremesa</span>
+        </div>
+        <p class="review-text" data-i18n="review_decaf">Descafeinado por proceso de agua, sin disolventes, y sin sacrificar carácter: caramelo, nuez tostada y una acidez casi imperceptible. El café para la sobremesa que no termina.</p>
+        <dl class="spec-sheet">
+          <div class="spec-row"><dt data-i18n="spec_origen">Origen</dt><dd>Colombia</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_altitud">Altitud</dt><dd>1400–1700 msnm</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_perfil">Perfil de tueste</dt><dd data-i18n="perfil_mediooscuro">Medio-oscuro</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_notas">Notas de cata</dt><dd data-i18n="notas_decaf">Caramelo, nuez tostada, acidez suave</dd></div>
+        </dl>
+      </article>
+
+      <article class="review-card">
+        <div class="review-photo ph"><img class="ph-img parallax-img" src="assets/images/productos/ristretto-riserva.webp" loading="lazy" data-i18n-attr="alt:img_alt_ristretto" alt="Vaso pequeño de espresso ristretto con crema densa en primer plano macro sobre fondo oscuro dramático"></div>
+        <div class="review-top">
+          <h3 class="review-name">Ristretto Riserva</h3>
+          <span class="review-tag" data-i18n="tag_ristretto">Edición limitada</span>
+        </div>
+        <p class="review-text" data-i18n="review_ristretto">Micro-lote limitado, extracción corta, máxima concentración. Especiado, casi resinoso, con un dulzor final que recuerda al higo seco. Se sirve en cantidades pequeñas por una razón.</p>
+        <dl class="spec-sheet">
+          <div class="spec-row"><dt data-i18n="spec_origen">Origen</dt><dd data-i18n="origen_ristretto">Micro-lote, Campania</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_altitud">Altitud</dt><dd data-i18n="altitud_ristretto">Mezcla de origen múltiple</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_perfil">Perfil de tueste</dt><dd data-i18n="perfil_oscuro">Oscuro</dd></div>
+          <div class="spec-row"><dt data-i18n="spec_notas">Notas de cata</dt><dd data-i18n="notas_ristretto">Especiado, resinoso, higo seco</dd></div>
+        </dl>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARTA DESTACADA — atajo de compra, no decoración ============ -->
+<section class="spread spread--dark carta-teaser" id="carta-teaser">
+  <div class="container">
+    <div class="carta-teaser-inner reveal reveal-scale">
+      <p class="kicker" data-i18n="teaser_kicker">La carta completa</p>
+      <h2 class="carta-teaser-title" data-i18n="teaser_title">Todo el menú, precio por precio.</h2>
+      <p class="carta-teaser-sub" data-i18n="teaser_sub">Café de bar, especialidades de la casa, y grano para llevar a tu cocina.</p>
+      <div class="carta-teaser-actions">
+        <a href="carta.html" class="btn btn--solid btn--large" data-i18n="teaser_cta_ver">Ver la Carta completa</a>
+        <a href="https://wa.me/5355530224?text=Hola!%20Quiero%20hacer%20un%20pedido." target="_blank" rel="noopener" class="btn btn--ghost btn--large" data-i18n="teaser_cta_pedir">Pedir ahora por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. CONTACTO / UBICACIÓN ============ -->
+<section class="spread" id="contatto">
+  <div class="container">
+
+    <div class="folio">
+      <span class="folio-num">— 04 —</span>
+      <span class="folio-rule"></span>
+      <span data-i18n="folio_contatto">Dónde Encontrarnos</span>
+    </div>
+
+    <div class="contact-grid">
+
+      <div class="contact-col reveal reveal-slide-right">
+        <div class="contact-head">
+          <p class="kicker" data-i18n="contatto_kicker">Visítanos</p>
+          <h2 class="headline headline-reveal" data-i18n="contatto_h2">Una esquina de Nápoli en pleno barrio.</h2>
+        </div>
+
+        <div class="info-block">
+          <h3 data-i18n="label_direccion">Dirección</h3>
+          <p>Thames 1548, Palermo Soho<br>C1414DNE, Ciudad Autónoma de Buenos Aires</p>
+        </div>
+
+        <div class="info-block">
+          <h3 data-i18n="label_horario">Horario</h3>
+          <p class="hours-badge" id="hoursBadge" aria-live="polite"></p>
+          <table class="hours-table" id="hoursTable">
+            <tr data-day="1"><td data-i18n="dia_lunes">Lunes</td><td>7:30 — 20:00</td></tr>
+            <tr data-day="2"><td data-i18n="dia_martes">Martes</td><td>7:30 — 20:00</td></tr>
+            <tr data-day="3"><td data-i18n="dia_miercoles">Miércoles</td><td>7:30 — 20:00</td></tr>
+            <tr data-day="4"><td data-i18n="dia_jueves">Jueves</td><td>7:30 — 20:00</td></tr>
+            <tr data-day="5"><td data-i18n="dia_viernes">Viernes</td><td>7:30 — 20:00</td></tr>
+            <tr data-day="6"><td data-i18n="dia_sabado">Sábado</td><td>8:30 — 20:00</td></tr>
+            <tr data-day="0"><td data-i18n="dia_domingo">Domingo</td><td>9:00 — 15:00</td></tr>
+          </table>
+        </div>
+
+        <div class="info-block">
+          <h3 data-i18n="label_contacto">Contacto</h3>
+          <p><a href="tel:+541148325566">+54 11 4832 5566</a><br><a href="mailto:tavolo@caffemoretti.com.ar">tavolo@caffemoretti.com.ar</a></p>
+        </div>
+
+        <div class="contact-actions">
+          <a href="https://wa.me/5355530224" target="_blank" rel="noopener" class="btn btn--solid" data-i18n="contatto_cta_pedido">Hacé tu pedido por WhatsApp</a>
+          <a href="https://maps.google.com/?q=Thames+1548,+Palermo,+Ciudad+Aut%C3%B3noma+de+Buenos+Aires,+Argentina" target="_blank" rel="noopener" class="btn btn--ghost" data-i18n="contatto_cta_llegar">Cómo llegar</a>
+        </div>
+
+        <div class="contact-form-block">
+          <h3 data-i18n="form_titulo">o escribinos directamente</h3>
+          <!-- Este formulario no envía datos a ningún servidor: el submit arma
+               el texto del mensaje en JS y abre wa.me con todo precargado —
+               la persona confirma el envío desde WhatsApp, no desde acá. -->
+          <form id="contactForm" class="contact-form" novalidate>
+            <div class="form-field">
+              <label for="ccName" data-i18n="form_nombre">Nombre</label>
+              <input type="text" id="ccName" name="nombre" autocomplete="name" required>
+              <span class="form-error" data-i18n="form_error_requerido">Este campo es obligatorio.</span>
+            </div>
+            <div class="form-field">
+              <label for="ccMotivo" data-i18n="form_motivo">Motivo (opcional)</label>
+              <select id="ccMotivo" name="motivo">
+                <option value="" data-i18n="form_motivo_placeholder">Elegí una opción</option>
+                <option value="Consulta general" data-i18n="form_motivo_consulta">Consulta general</option>
+                <option value="Pedido grande / evento" data-i18n="form_motivo_evento">Pedido grande / evento</option>
+                <option value="Otro" data-i18n="form_motivo_otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="ccContact" data-i18n="form_contacto">Teléfono o email</label>
+              <input type="text" id="ccContact" name="contacto" autocomplete="tel" required>
+              <span class="form-error" data-i18n="form_error_requerido">Este campo es obligatorio.</span>
+            </div>
+            <div class="form-field">
+              <label for="ccMessage" data-i18n="form_mensaje">Mensaje</label>
+              <textarea id="ccMessage" name="mensaje" rows="4" required></textarea>
+              <span class="form-error" data-i18n="form_error_requerido">Este campo es obligatorio.</span>
+            </div>
+            <!-- honeypot anti-bots: invisible por CSS (no display:none, para que
+                 los bots más simples igual lo completen), nunca lo ve una persona -->
+            <div class="form-field form-honeypot" aria-hidden="true">
+              <label for="ccWebsite">Website</label>
+              <input type="text" id="ccWebsite" name="website" tabindex="-1" autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn--solid" data-i18n="form_enviar">Enviar por WhatsApp</button>
+            <p class="form-confirm" id="formConfirm" role="status" aria-live="polite" data-i18n="form_confirmado">Se abrió WhatsApp con tu mensaje — confirmá el envío ahí.</p>
+          </form>
+          <p class="form-privacy" data-i18n="form_privacy">Tus datos se usan únicamente para responder tu consulta por WhatsApp — no se almacenan en ningún servidor.</p>
+        </div>
+      </div>
+
+      <div class="contact-visual reveal reveal-delay-2">
+        <div class="ph"><img class="ph-img parallax-img" src="assets/images/local/fachada-sala.webp" loading="lazy" data-i18n-attr="alt:img_alt_fachada" alt="Fachada de una cafetería italiana tradicional de barrio con toldo terracota y puerta de madera oscura"></div>
+        <!-- Sustituir por un iframe de Google Maps real, no por una imagen generada -->
+        <!-- Mapa real — Google Maps embed, sin API key. Actualizar la query si cambia la dirección -->
+        <div class="map-embed">
+          <iframe
+            src="https://maps.google.com/maps?q=Thames%201548%2C%20Palermo%2C%20Ciudad%20Aut%C3%B3noma%20de%20Buenos%20Aires%2C%20Argentina&output=embed"
+            width="100%" height="100%" style="border:0;"
+            allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación de Caffè Moretti — Thames 1548, Palermo, CABA">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. VOCI / TESTIMONIOS ============ -->
+<section class="spread spread--dark" id="voci">
+  <div class="container">
+
+    <div class="folio">
+      <span class="folio-num">— 05 —</span>
+      <span class="folio-rule"></span>
+      <span data-i18n="folio_voci">Lo que dicen nuestros clientes</span>
+    </div>
+
+    <div class="voci-head reveal reveal-slide-left">
+      <p class="kicker" data-i18n="voci_kicker">Lo que dicen quienes nos visitan</p>
+      <h2 class="headline headline-reveal" data-i18n="voci_h2">Lo que dicen quienes vuelven cada mañana.</h2>
+    </div>
+
+    <div class="voci-list reveal">
+
+      <article class="voice-letter voice-letter--medium">
+        <div class="voice-letter-meta"><span class="voice-letter-num" data-i18n="voci_num_1">Testimonio 01</span></div>
+        <div class="voice-letter-body">
+          <p class="voice-letter-text" data-i18n="voci_1_text">Viví tres años en Nápoles y llevo cinco buscando ese mismo amargor redondo. Lo encontré aquí, en una taza pequeña de porcelana gruesa, exactamente igual.</p>
+          <p class="voice-letter-attr"><b>Lucía Ferrante</b> — <span data-i18n="voci_1_attr">Arquitecta, vecina de Palermo</span></p>
+          <p class="voice-letter-note" data-i18n="voci_translated_note"></p>
+        </div>
+      </article>
+
+      <article class="voice-letter voice-letter--minor">
+        <div class="voice-letter-meta"><span class="voice-letter-num" data-i18n="voci_num_2">Testimonio 02</span></div>
+        <div class="voice-letter-body">
+          <p class="voice-letter-text" data-i18n="voci_2_text">Paso a las 8:05 todos los días laborables. No hace falta que pida: ya saben lo que quiero. Ese detalle vale más que cualquier fidelización digital.</p>
+          <p class="voice-letter-attr"><b>Javier Roldán</b> — <span data-i18n="voci_2_attr">Abogado, cliente habitual de las ocho</span></p>
+          <p class="voice-letter-note" data-i18n="voci_translated_note"></p>
+        </div>
+      </article>
+
+      <article class="voice-letter voice-letter--medium">
+        <div class="voice-letter-meta"><span class="voice-letter-num" data-i18n="voci_num_3">Testimonio 03</span></div>
+        <div class="voice-letter-body">
+          <p class="voice-letter-text" data-i18n="voci_3_text">Soy italiana y soy exigente por deformación profesional. Es el único sitio fuera de casa donde no me sale la frase "esto en Italia sería distinto".</p>
+          <p class="voice-letter-attr"><b>Chiara Bassi</b> — <span data-i18n="voci_3_attr">Diseñadora, residente en Recoleta</span></p>
+          <p class="voice-letter-note" data-i18n="voci_translated_note"></p>
+        </div>
+      </article>
+
+      <article class="voice-letter voice-letter--minor">
+        <div class="voice-letter-meta"><span class="voice-letter-num" data-i18n="voci_num_4">Testimonio 04</span></div>
+        <div class="voice-letter-body">
+          <p class="voice-letter-text" data-i18n="voci_4_text">El caffè sospeso me pareció una anécdota bonita hasta que un día lo necesité. Nadie preguntó nada. Eso no se aprende en un manual de marca.</p>
+          <p class="voice-letter-attr"><b>Martín Osorio</b> — <span data-i18n="voci_4_attr">Profesor universitario, UBA</span></p>
+          <p class="voice-letter-note" data-i18n="voci_translated_note"></p>
+        </div>
+      </article>
+
+      <article class="voice-letter voice-letter--major">
+        <div class="voice-letter-meta"><span class="voice-letter-num" data-i18n="voci_num_5">Testimonio 05</span></div>
+        <div class="voice-letter-body">
+          <p class="voice-letter-text" data-i18n="voci_5_text">Llevo diez años escribiendo sobre café y pocas veces anoto una torrefazione en mi cuaderno personal. Esta sí entró — por el tueste, y por lo que no cambia.</p>
+          <p class="voice-letter-attr"><b>Beatriz Nieto</b> — <span data-i18n="voci_5_attr">Periodista gastronómica</span></p>
+          <p class="voice-letter-note" data-i18n="voci_translated_note"></p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <span class="footer-logo">Caffè Moretti</span>
+      <nav class="footer-links">
+        <a href="#storia" data-i18n="nav_historia">La Historia</a>
+        <a href="#selezione" data-i18n="nav_seleccion">Selección</a>
+        <a href="carta.html" data-i18n="nav_carta">Carta</a>
+        <a href="#contatto" data-i18n="nav_contacto">Contacto</a>
+        <a href="#voci" data-i18n="nav_voces">Voces</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>Caffè Moretti — Torrefazione Napoletana dal 1962 · Buenos Aires, Argentina</span>
+      <span data-i18n="footer_edicion">Edición digital — N.º 07, Otoño</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

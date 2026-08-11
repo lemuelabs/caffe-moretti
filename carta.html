@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Carta — Caffè Moretti</title>
+<meta name="description" content="La carta de Caffè Moretti: bar de pie, especialidades de la casa y algo para acompañar, en Palermo, Buenos Aires.">
+<link rel="canonical" href="https://msamueldev.github.io/caffe-moretti/carta.html">
+
+<!-- Favicon — inicial "M" en serif itálica dentro de un círculo, terracota sobre crema -->
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+
+<!-- Open Graph / Twitter Card -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://msamueldev.github.io/caffe-moretti/carta.html">
+<meta property="og:title" content="La Carta — Caffè Moretti">
+<meta property="og:description" content="La carta de Caffè Moretti: bar de pie, especialidades de la casa y algo para acompañar, en Palermo, Buenos Aires.">
+<meta property="og:image" content="https://msamueldev.github.io/caffe-moretti/assets/images/hero/cover-espresso-cup.webp">
+<meta property="og:image:width" content="900">
+<meta property="og:image:height" content="1200">
+<meta property="og:image:type" content="image/webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La Carta — Caffè Moretti">
+<meta name="twitter:description" content="La carta de Caffè Moretti: bar de pie, especialidades de la casa y algo para acompañar, en Palermo, Buenos Aires.">
+<meta name="twitter:image" content="https://msamueldev.github.io/caffe-moretti/assets/images/hero/cover-espresso-cup.webp">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;1,6..96,400;1,6..96,600;1,6..96,700&family=Source+Serif+4:opsz,wght@8..60,400&family=Archivo+Narrow:wght@400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+<script>
+  /* Aplica el tema antes del primer paint para evitar flash de color.
+     Prioridad: elección guardada por el usuario > preferencia del sistema. */
+  (function(){
+    try{
+      var KEY = 'caffe-moretti-theme';
+      var stored = localStorage.getItem(KEY);
+      var wantsDark = stored ? stored === 'dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (wantsDark) document.documentElement.setAttribute('data-theme', 'dark');
+    }catch(e){}
+  })();
+  (function(){
+    try{
+      if (sessionStorage.getItem('cm-page-transition')) {
+        document.documentElement.classList.add('is-entering');
+      }
+    }catch(e){}
+  })();
+</script>
+
+<!-- Analítica — Plausible (privacy-friendly, sin cookies, cero backend propio).
+     data-domain apunta al dominio real donde vive el sitio (GitHub Pages).
+     Ojo: Plausible trackea por dominio completo, no por subcarpeta — si esta
+     cuenta de GitHub Pages aloja más de un proyecto bajo msamueldev.github.io,
+     las estadísticas de todos esos proyectos se van a mezclar acá. Si eso
+     importa, conviene un dominio propio (ej. subdominio) solo para este sitio. -->
+<script defer data-domain="msamueldev.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<div class="page-transition" aria-hidden="true">
+  <span class="page-transition-word">Caffè Moretti</span>
+</div>
+
+<!-- reading progress rail -->
+<div class="progress-rail" aria-hidden="true">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="progress-bean" id="progressBean" aria-hidden="true"></div>
+
+<!-- ============ HEADER SIMPLE — no es el masthead completo del sitio, esto es otra página ============ -->
+<header class="masthead-bar">
+  <div class="masthead-inner">
+    <a href="index.html" class="mast-logo">Caffè <em>Moretti</em></a>
+    <div class="masthead-actions">
+      <button type="button" id="themeToggle" class="theme-toggle" aria-label="Cambiar a modo oscuro">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 14.2A8.4 8.4 0 1 1 9.8 4a6.6 6.6 0 0 0 10.2 10.2Z"/>
+        </svg>
+      </button>
+      <div class="lang-switch">
+        <label for="langSelect" class="lang-switch-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M3 12h18M12 3c2.5 2.5 3.8 5.6 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.6-3.8-9s1.3-6.5 3.8-9Z"/>
+          </svg>
+          <span data-i18n="lang_label">Idioma</span>
+        </label>
+        <select id="langSelect" aria-label="Idioma">
+          <option value="es">Español</option>
+          <option value="en">English</option>
+          <option value="pt-BR">Português</option>
+        </select>
+      </div>
+      <a href="index.html" class="btn btn--ghost carta-back-link" data-i18n="carta_volver">← Volver al sitio</a>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+<section class="spread carta-page" id="carta">
+  <div class="container">
+
+    <div class="carta-cover">
+      <p class="carta-kicker" data-i18n="carta_tapa">Tapa de sección</p>
+      <h1 class="carta-title">La Carta</h1>
+      <p class="carta-subtitle" data-i18n="carta_subtitulo">Bar de pie, algo para acompañar y granos para llevar a casa. Todos los cafés están disponibles para llevar.</p>
+    </div>
+
+    <!-- ACTUALIZAR PRECIOS: los valores en $ de esta sección son de referencia
+         (mercado de café de especialidad en Buenos Aires, otoño 2026). Ajustalos
+         acá antes de publicar — es el único lugar del sitio donde viven. -->
+
+    <div class="menu-category">
+      <h2 class="menu-category-title" data-i18n="carta_cat_bar">Bar & Espresso</h2>
+
+      <div class="menu-recommended">
+        <div class="menu-item-photo ph"><img class="ph-img" src="assets/images/productos/affogato.webp" loading="lazy" data-i18n-attr="alt:img_alt_affogato" alt="Vaso de affogato al caffè, espresso caliente servido sobre gelato de vainilla, con vapor visible"></div>
+        <div class="menu-item-body">
+          <span class="menu-recommended-eyebrow" data-i18n="carta_recomendado">Recomendado</span>
+          <div class="menu-item-top">
+            <span class="menu-name">Affogato al caffè</span>
+            <span class="menu-price">$7.400</span>
+          </div>
+          <p class="menu-item-desc" data-i18n="featured_affogato">Espresso caliente servido directo sobre gelato de vainilla — el contraste se deshace en la cuchara antes de llegar a la boca.</p>
+          <a href="https://wa.me/5355530224?text=Hola!%20Quiero%20pedir%20un%20Affogato%20al%20caff%C3%A8." target="_blank" rel="noopener" class="menu-item-cta" data-i18n="carta_pedir_ahora">Pedir ahora</a>
+        </div>
+      </div>
+
+      <ul class="menu-list">
+        <li class="menu-item"><span class="menu-name">Espresso</span><span class="menu-leader"></span><span class="menu-price">$4.200</span></li>
+        <li class="menu-item"><span class="menu-name">Espresso doppio</span><span class="menu-leader"></span><span class="menu-price">$5.400</span></li>
+        <li class="menu-item"><span class="menu-name">Macchiato</span><span class="menu-leader"></span><span class="menu-price">$4.600</span></li>
+        <li class="menu-item"><span class="menu-name">Cortado</span><span class="menu-leader"></span><span class="menu-price">$4.800</span></li>
+        <li class="menu-item"><span class="menu-name">Cappuccino</span><span class="menu-leader"></span><span class="menu-price">$5.600</span></li>
+        <li class="menu-item"><span class="menu-name">Flat white</span><span class="menu-leader"></span><span class="menu-price">$6.200</span></li>
+        <li class="menu-item"><span class="menu-name">Marocchino</span><span class="menu-leader"></span><span class="menu-price">$6.800</span></li>
+        <li class="menu-item"><span class="menu-name">Mocaccino</span><span class="menu-leader"></span><span class="menu-price">$6.900</span></li>
+        <!-- marcados con ★ — mismos 4 productos de la sección "Selezione" en index.html -->
+        <li class="menu-item menu-item--marked"><span class="menu-name">Miscela Vesuvio</span><span class="menu-leader"></span><span class="menu-price">$5.400</span></li>
+        <li class="menu-item menu-item--marked"><span class="menu-name">Shakerato <span data-i18n="carta_shakerato_nota">(con hielo, temporada de verano)</span></span><span class="menu-leader"></span><span class="menu-price">$6.800</span></li>
+        <li class="menu-item menu-item--marked"><span class="menu-name">Decaffeinato all'Antica</span><span class="menu-leader"></span><span class="menu-price">$5.800</span></li>
+        <li class="menu-item menu-item--marked"><span class="menu-name">Ristretto Riserva <span data-i18n="carta_ristretto_nota">(micro-lote, edición limitada)</span></span><span class="menu-leader"></span><span class="menu-price">$8.200</span></li>
+      </ul>
+    </div>
+
+    <div class="menu-category">
+      <h2 class="menu-category-title" data-i18n="carta_cat_acompanar">Para acompañar</h2>
+
+      <div class="menu-recommended">
+        <div class="menu-item-photo ph"><img class="ph-img" src="assets/images/productos/tiramisu.webp" loading="lazy" data-i18n-attr="alt:img_alt_tiramisu" alt="Porción de tiramisù casero con capas de mascarpone y cacao amargo espolvoreado encima"></div>
+        <div class="menu-item-body">
+          <span class="menu-recommended-eyebrow" data-i18n="carta_recomendado">Recomendado</span>
+          <div class="menu-item-top">
+            <span class="menu-name" data-i18n="carta_tiramisu">Tiramisù de la casa</span>
+            <span class="menu-price">$7.200</span>
+          </div>
+          <p class="menu-item-desc" data-i18n="featured_tiramisu">Capas de mascarpone, café recién colado y cacao amargo. La receta no cambió desde 1962, y no pensamos cambiarla.</p>
+          <a href="https://wa.me/5355530224?text=Hola!%20Quiero%20pedir%20un%20Tiramis%C3%B9%20de%20la%20casa." target="_blank" rel="noopener" class="menu-item-cta" data-i18n="carta_pedir_ahora">Pedir ahora</a>
+        </div>
+      </div>
+
+      <ul class="menu-list">
+        <li class="menu-item"><span class="menu-name">Cornetto <span data-i18n="carta_cornetto_vacio">vacío</span></span><span class="menu-leader"></span><span class="menu-price">$3.600</span></li>
+        <li class="menu-item"><span class="menu-name">Cornetto <span data-i18n="carta_cornetto_crema">con crema pastelera</span></span><span class="menu-leader"></span><span class="menu-price">$4.400</span></li>
+        <li class="menu-item"><span class="menu-name">Cornetto <span data-i18n="carta_cornetto_choc">con chocolate</span></span><span class="menu-leader"></span><span class="menu-price">$4.400</span></li>
+        <li class="menu-item"><span class="menu-name">Torta della nonna</span><span class="menu-leader"></span><span class="menu-price">$6.800</span></li>
+        <li class="menu-item"><span class="menu-name" data-i18n="carta_focaccia">Focaccia del día</span><span class="menu-leader"></span><span class="menu-price">$5.200</span></li>
+        <li class="menu-item"><span class="menu-name">Panino <span data-i18n="carta_panino">(jamón crudo y provolone)</span></span><span class="menu-leader"></span><span class="menu-price">$8.400</span></li>
+      </ul>
+    </div>
+
+    <div class="menu-category">
+      <h2 class="menu-category-title" data-i18n="carta_cat_granos">Granos para llevar</h2>
+
+      <div class="menu-recommended">
+        <div class="menu-item-photo ph"><img class="ph-img" src="assets/images/productos/ristretto-riserva.webp" loading="lazy" data-i18n-attr="alt:img_alt_ristretto" alt="Vaso pequeño de espresso ristretto con crema densa en primer plano macro sobre fondo oscuro dramático"></div>
+        <div class="menu-item-body">
+          <span class="menu-recommended-eyebrow" data-i18n="carta_recomendado">Recomendado</span>
+          <div class="menu-item-top">
+            <span class="menu-name">Ristretto Riserva — 250g <span data-i18n="carta_micro_lote">(micro-lote)</span></span>
+            <span class="menu-price">$9.800</span>
+          </div>
+          <p class="menu-item-desc" data-i18n="featured_ristretto_grano">El micro-lote que más rápido se agota. Llevate una bolsa antes de que se termine la cosecha.</p>
+          <a href="https://wa.me/5355530224?text=Hola!%20Quiero%20pedir%20una%20bolsa%20de%20Ristretto%20Riserva." target="_blank" rel="noopener" class="menu-item-cta" data-i18n="carta_pedir_ahora">Pedir ahora</a>
+        </div>
+      </div>
+
+      <ul class="menu-list">
+        <li class="menu-item"><span class="menu-name">Decaffeinato all'Antica — 250g</span><span class="menu-leader"></span><span class="menu-price">$7.200</span></li>
+        <li class="menu-item"><span class="menu-name">Decaffeinato all'Antica — 500g</span><span class="menu-leader"></span><span class="menu-price">$13.400</span></li>
+      </ul>
+      <p class="menu-note" data-i18n="carta_nota_molienda">Molienda a pedido: espresso, filtro o prensa francesa, sin cargo.</p>
+    </div>
+
+    <p class="menu-note" data-i18n="carta_nota">Todos los cafés están disponibles para llevar.<br>Precios sujetos a cambios — última actualización: temporada otoño 2026.</p>
+
+    <div class="carta-back-row">
+      <a href="index.html" class="btn btn--ghost carta-back" data-i18n="carta_volver_inicio">↑ Volver al inicio</a>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <span class="footer-logo">Caffè Moretti</span>
+      <nav class="footer-links">
+        <a href="index.html#storia" data-i18n="nav_historia">La Historia</a>
+        <a href="index.html#selezione" data-i18n="nav_seleccion">Selección</a>
+        <a href="carta.html" data-i18n="nav_carta">Carta</a>
+        <a href="index.html#contatto" data-i18n="nav_contacto">Contacto</a>
+        <a href="index.html#voci" data-i18n="nav_voces">Voces</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>Caffè Moretti — Torrefazione Napoletana dal 1962 · Buenos Aires, Argentina</span>
+      <span data-i18n="footer_edicion">Edición digital — N.º 07, Otoño</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
