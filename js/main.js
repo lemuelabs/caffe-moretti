@@ -46,6 +46,30 @@
   }
 
   // -----------------------------------------------------------
+  // Bug de bfcache: si el navegador restaura esta página desde el
+  // caché de atrás/adelante (en vez de recargarla), el estado que
+  // tenía justo antes de navegar (incluida la clase "is-leaving" con
+  // el overlay tapando todo y pointer-events:auto) queda "congelado"
+  // tal cual estaba. Sin este listener, volver con el botón atrás deja
+  // la pantalla negra bloqueando cualquier interacción. Corre siempre,
+  // sin importar si esta página tiene el overlay en el DOM — el
+  // problema puede aparecer volviendo desde cualquiera de las dos.
+  // -----------------------------------------------------------
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      document.documentElement.classList.remove('is-leaving', 'is-entering');
+      try { sessionStorage.removeItem('cm-page-transition'); } catch (err) {}
+      // caso límite: si se salió con el menú móvil abierto por otra vía
+      // que no fuera clickear un link (ej. cerrar la pestaña), que no
+      // vuelva a aparecer abierto
+      if (navToggle && navToggle.checked) {
+        navToggle.checked = false;
+        if (navToggleLabel) navToggleLabel.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+
+  // -----------------------------------------------------------
   // Barra de progreso de lectura + marcador "grano"
   // -----------------------------------------------------------
   var fill = document.getElementById('progressFill');
@@ -133,54 +157,71 @@
   }
 
   if (hoursTable && hoursBadge) {
-    var rows = Array.prototype.slice.call(hoursTable.querySelectorAll('tr[data-day]'));
-    var schedule = {}; // { 0: {openMin, closeMin, row}, 1: {...}, ... }
+    var updateHoursBadge = function () {
+      var rows = Array.prototype.slice.call(hoursTable.querySelectorAll('tr[data-day]'));
+      var schedule = {}; // { 0: {openMin, closeMin, row}, 1: {...}, ... }
 
-    rows.forEach(function (row) {
-      var day = parseInt(row.getAttribute('data-day'), 10);
-      var timeText = row.children[1] ? row.children[1].textContent : '';
-      var times = timeText.match(/\d{1,2}:\d{2}/g);
-      if (times && times.length >= 2) {
-        schedule[day] = {
-          openMin: parseTimeToMinutes(times[0]),
-          closeMin: parseTimeToMinutes(times[1]),
-          row: row
-        };
+      // limpiar el resaltado del día anterior antes de recalcular — si no,
+      // en una pestaña que sigue abierta al cruzar la medianoche (o al
+      // volver mucho después vía bfcache) quedarían dos días marcados
+      // como "hoy" a la vez
+      rows.forEach(function (row) { row.classList.remove('is-today'); });
+
+      rows.forEach(function (row) {
+        var day = parseInt(row.getAttribute('data-day'), 10);
+        var timeText = row.children[1] ? row.children[1].textContent : '';
+        var times = timeText.match(/\d{1,2}:\d{2}/g);
+        if (times && times.length >= 2) {
+          schedule[day] = {
+            openMin: parseTimeToMinutes(times[0]),
+            closeMin: parseTimeToMinutes(times[1]),
+            row: row
+          };
+        }
+      });
+
+      var now = new Date();
+      var today = now.getDay();
+      var nowMin = now.getHours() * 60 + now.getMinutes();
+
+      // resaltar la fila del día actual
+      if (schedule[today]) {
+        schedule[today].row.classList.add('is-today');
       }
-    });
 
-    var now = new Date();
-    var today = now.getDay();
-    var nowMin = now.getHours() * 60 + now.getMinutes();
-
-    // resaltar la fila del día actual
-    if (schedule[today]) {
-      schedule[today].row.classList.add('is-today');
-    }
-
-    var todayEntry = schedule[today];
-    if (todayEntry && nowMin >= todayEntry.openMin && nowMin < todayEntry.closeMin) {
-      hoursBadge.textContent = 'Abierto ahora — cierra a las ' + formatMinutes(todayEntry.closeMin);
-      hoursBadge.className = 'hours-badge hours-badge--open';
-    } else {
-      // buscar la próxima apertura: hoy más tarde (si todavía no abrió) o el próximo día con horario
-      var next = null;
-      for (var i = 0; i <= 7; i++) {
-        var d = (today + i) % 7;
-        var entry = schedule[d];
-        if (!entry) continue;
-        if (i === 0 && nowMin >= entry.openMin) continue; // hoy ya pasó la apertura, seguir buscando
-        next = { day: d, openMin: entry.openMin };
-        break;
-      }
-      if (next) {
-        hoursBadge.textContent =
-          'Cerrado ahora — abre ' + DAY_NAMES[next.day] + ' a las ' + formatMinutes(next.openMin);
+      var todayEntry = schedule[today];
+      if (todayEntry && nowMin >= todayEntry.openMin && nowMin < todayEntry.closeMin) {
+        hoursBadge.textContent = 'Abierto ahora — cierra a las ' + formatMinutes(todayEntry.closeMin);
+        hoursBadge.className = 'hours-badge hours-badge--open';
       } else {
-        hoursBadge.textContent = 'Cerrado ahora';
+        // buscar la próxima apertura: hoy más tarde (si todavía no abrió) o el próximo día con horario
+        var next = null;
+        for (var i = 0; i <= 7; i++) {
+          var d = (today + i) % 7;
+          var entry = schedule[d];
+          if (!entry) continue;
+          if (i === 0 && nowMin >= entry.openMin) continue; // hoy ya pasó la apertura, seguir buscando
+          next = { day: d, openMin: entry.openMin };
+          break;
+        }
+        if (next) {
+          hoursBadge.textContent =
+            'Cerrado ahora — abre ' + DAY_NAMES[next.day] + ' a las ' + formatMinutes(next.openMin);
+        } else {
+          hoursBadge.textContent = 'Cerrado ahora';
+        }
+        hoursBadge.className = 'hours-badge hours-badge--closed';
       }
-      hoursBadge.className = 'hours-badge hours-badge--closed';
-    }
+    };
+
+    updateHoursBadge();
+
+    // si la página se restaura desde bfcache, puede haber pasado
+    // cualquier cantidad de tiempo real — recalcular en vez de mostrar
+    // un horario que quedó congelado del momento en que se cargó
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) updateHoursBadge();
+    });
   }
 
   // -----------------------------------------------------------
